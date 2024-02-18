@@ -18,3 +18,5 @@ catkin_package(
 catkin_install_python(PROGRAMS scripts/cansend_generator.py
 	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 	)
+
+##test
