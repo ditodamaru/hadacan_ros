@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>cansend_generator</name>
+  <version>0.0.0</version>
+  <description>The cansend_generator package</description>
+
+  <maintainer email="anditya.sridamar.p@gmail.com">Dito Damaru</maintainer>
+
+  <license>GPLv3</license>
+
+  <author email="anditya.sridamar.p@gmail.com">Dito Damaru</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>ackermann_msgs</depend>
+
+  <export>
+  </export>
+</package>
