@@ -1,10 +1,5 @@
-#!/usr/bin/env python?
-##add test
-#
-#
-'''
-TEST
-'''
+#!/usr/bin/env python
+
 
 import rospy
 from std_msgs.msg import Float64
@@ -37,7 +32,19 @@ def generate_cansend_frame(steering_angle, wheel_speed):
 
 def send_cansend_frame(cansend_frame):
     try:
-        subprocess.run(['cansend', 'can0', cansend_frame])
+        '''
+        #for python3 ROS Noetic
+        subprocess.run(['cansend', 'can0', cansend_frame]) #for python3
+    except Exception as e:
+        rospy.logerr("Error sending cansend frame: %s", str(e))
+        '''
+
+        '''
+        For python 2 ROS Melodic use below:
+        '''
+        subprocess.check_call(['cansend', 'can0', cansend_frame])
+    except subprocess.CalledProcessError as e:
+        rospy.logerr("Error sending cansend frame. Return code: %s", e.returncode)
     except Exception as e:
         rospy.logerr("Error sending cansend frame: %s", str(e))
 
