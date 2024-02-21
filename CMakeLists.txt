@@ -15,8 +15,11 @@ catkin_package(
   DEPENDS
 )
 
-catkin_install_python(PROGRAMS scripts/cansend_generator.py
-	DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+catkin_install_python(
+  PROGRAMS 
+  scripts/cansend_generator.py
+	scripts/canparsing_imu.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 	)
 
 ##test
