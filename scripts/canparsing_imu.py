@@ -115,7 +115,7 @@ def main():
             #change %X foe hexadecimal
             #method1
             #rospy.loginfo("Check : %X", can_id & (1 << 32)) #Ensure can_id is non_negative
-            can_decode_and_publish_modeC
+            #can_decode_and_publish_modeC
             #method2
             rospy.loginfo("Check : %X", can_id & 0xFFFFFFFF)
 
