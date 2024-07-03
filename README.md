@@ -31,8 +31,10 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
     source ~/.bashrc
     ```
     * Create new file on directory joystick_remapper/launch with a name "joystick_remapper_ps3_hadarobot.launch" as an example. After completed this step you will see new file called joystick_remapper_ps3_hadarobot.launch
+    ```
     cd ~/github/joystick_remapper_ws/src/joystick_remapper/launch
     touch joystick_remapper_ps3_hadarobot.launch
+    ```
     * Edit joystick_remapper_ps3_hadarobot.launch using Visual Studio code and the copy this launch script below:
     ```
     <?xml version="1.0"?>
@@ -52,7 +54,7 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
     </launch>
     ```
 2. [HADA bringup ROS Package]
-    *Clone this package
+    * Clone this package
 3. Ackerman Drive Package
 
 4. Fork this branch (for developer)
