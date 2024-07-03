@@ -108,11 +108,13 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
   rosrun cansend_generator joy_detect.py
   ```
   * Start CAN Bus Communication with HADA H500 Robot
+
     For first installation
     ```
     rosrun hada_bringup setup_can2usb_hada.bash 
     ```
     After installation finished, directly use this steps below.
+      
       Option 1
       ```
       rosrun hada_bringup bringup_can2usb_hada.bash 
