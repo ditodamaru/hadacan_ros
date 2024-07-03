@@ -1,11 +1,6 @@
 #!/usr/bin/env python
 
 __author__ = 'Anditya Sridamar Pratyasta'
-<<<<<<< HEAD
-__license__ = 'GPLv3'
-__maintainer__ = 'Anditya Sridamar Pratyasta'
-=======
->>>>>>> 150ac82e85174dd8aa59afb799c78c3e2dd019bf
 __email__ = 'anditya.sridamar.p@kangwon.ac.kr'
 
 import rospy
