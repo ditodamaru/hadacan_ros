@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 
 __author__ = 'Anditya Sridamar Pratyasta'
-__license__ = 'GPLv3'
-__maintainer__ = 'Anditya Sridamar Pratyasta'
-__email__ = 'anditya.sridamar.p@gmail.com'
+__email__ = 'anditya.sridamar.p@kangwon.ac.kr'
 
 import rospy
 from sensor_msgs.msg import Joy
