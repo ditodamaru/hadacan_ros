@@ -1,4 +1,7 @@
-# cansend_ws_aero
+# Joystick Remote Control for HADA H500 Sprayer CANBUS-Based Protocol and software stack interface to ROS
+
+This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Joytron MXSwitch Joystick version was used to test the functionality. Other joystick brand and version may need adjustment.   
+
 
 ## List To-DO
 
@@ -8,7 +11,7 @@
 - [ ] improving detection speed on joy_detect.py
 - [v] add block to indicate joystick on standby state which indicate by there is no incoming message on axis
 - [v] combining ('/joystick_control_state') to joy_connection_status
-- [ ] joy_detect.py <-> rosrun ackermann_drive_teleop joyop.py <-> rosrun 
+- [v] create connection between joy_detect.py <-> rosrun ackermann_drive_teleop joyop.py 
 
 ## Basic usage of the ROS packages
 ### Install dependencies
@@ -16,31 +19,35 @@
 1. [Joystick Remapper](http://wiki.ros.org/joystick_remapper) Use this launch script 
 2. [HADA bringup ROS Package]
 3. Fork this branch (for developer)
-  * Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-  * Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-  * Push to the Branch (`git push origin feature/AmazingFeature`)
+    * Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+    * Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+    * Push to the Branch (`git push origin feature/AmazingFeature`)
 
 4. 
 5. Launch ROS Nodes
 
-* Start bluetooth joystick node and joystick topic remapper 
-```
-roslaunch joystick_remapper joystick_remapper_ps3_hadarobot.launch 
-```
-* Start joystick controller safety node 
-```
-rosrun cansend_generator joy_detect.py
-```
-* Start CAN Bus Communication with HADA H500 Robot
-```
-rosrun hada_bringup bringup_can2usb_hada.bash 
-```
-* Start ackerman drive steering control node 
-```
-rosrun ackermann_drive_teleop joyop.py
-```
+  * Start bluetooth joystick node and joystick topic remapper 
+  ```
+  roslaunch joystick_remapper joystick_remapper_ps3_hadarobot.launch 
+  ```
+  * Start joystick controller safety node 
+  ```
+  rosrun cansend_generator joy_detect.py
+  ```
+  * Start CAN Bus Communication with HADA H500 Robot
+  ```
+  rosrun hada_bringup bringup_can2usb_hada.bash 
+  ```
+  * Start ackerman drive steering control node 
+  ```
+  rosrun ackermann_drive_teleop joyop.py
+  ```
+
 * Check this video for [details](https://www.youtube.com/watch?v=bRNPGkcOvKI)
-* Check this [figure]() for troubleshooting
+* Check this [figure](https://github.com/ditodamaru/cansend_ws_aero/blob/main/docs/rosgraph_hada_remote_control.png) for troubleshooting
+
+
+
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -60,6 +67,7 @@ Don't forget to give the project a star! Thanks again!
 
 
 
+### Launch Script for joystick_remapper
 
 
 
