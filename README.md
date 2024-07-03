@@ -108,18 +108,23 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
   rosrun cansend_generator joy_detect.py
   ```
   * Start CAN Bus Communication with HADA H500 Robot
-    Option 1
+    For first installation
     ```
-    rosrun hada_bringup bringup_can2usb_hada.bash 
+    rosrun hada_bringup setup_can2usb_hada.bash 
     ```
-    Option 2 (Optionally to start CAN Bus communication could be done by this command without hada_bringup package)
-    ```
-    rosrun hada_bringup bringup_can2usb_hada.bash 
-    ```
-    Troubleshooting CAN Bus communication (You will see incoming CAN frame messages from HADA H500 robot)
-    ```
-    candump can0
-    ```
+    After installation finished, directly use this steps below.
+      Option 1
+      ```
+      rosrun hada_bringup bringup_can2usb_hada.bash 
+      ```
+      Option 2 (Optionally to start CAN Bus communication could be done by this command without hada_bringup package)
+      ```
+      sudo ip link set can0 up type can bitrate 125000
+      ```
+      Troubleshooting CAN Bus communication (You will see incoming CAN frame messages from HADA H500 robot)
+      ```
+      candump can0
+      ```
   * Start ackerman drive steering control node 
   ```
   rosrun ackermann_drive_teleop joyop.py
@@ -131,7 +136,7 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
 
 * Check this video for [details](https://www.youtube.com/watch?v=bRNPGkcOvKI)
 * Check this [figure](https://github.com/ditodamaru/cansend_ws_aero/blob/main/docs/rosgraph_hada_remote_control.png) for troubleshooting
-* Check this ![figure](https://github.com/ditodamaru/cansend_ws_aero/blob/main/docs/rosgraph_hada_remote_control.png?raw=true) for troubleshooting
+* Check this figure below for troubleshooting![figure](https://github.com/ditodamaru/cansend_ws_aero/blob/main/docs/rosgraph_hada_remote_control.png?raw=true)
 
 
 ## Basic usage of the ROS packages for development
@@ -154,98 +159,8 @@ Don't forget to give the project a star! Thanks again!
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-
-
-
-
-
-
-
-
-### Launch Script for joystick_remapper. Create new file on directory joystick_remapper/launch with name joystick_remapper_ps3_hadarobot.launch as an example 
-  ```
-  <?xml version="1.0"?>
-  <launch>
-    <node pkg="joy" type="joy_node" name="ps3_joy" >
-      <remap from="joy" to="ps3_joy" />
-      <param name="dev" value="/dev/input/js0" />
-      <param name="deadzone" value="0.1" />
-      <param name="autorepeat_rate" value="10" />
-    </node>
-    <node pkg="joystick_remapper" type="joystick_remapper.py" name="ps3_to_hadarobot" >
-      <remap from="joy_source" to="ps3_joy" />
-      <remap from="joy_dest" to="joy" />
-      <param name="button_mapping" type="str" value="=" />
-      <param name="axis_mapping" type="str" value="0 3 1 2 4 5 6" /> <!-- result1 = 0 2 1 3 4 5 6-->
-    </node>
-  </launch>
-  ```
-
-
-
-
-# README.md Template 
-# Project Title
-
-Simple overview of use/purpose.
-
-## Description
-
-An in-depth paragraph about your project and overview of use.
-
-## Getting Started
-
-### Dependencies
-
-* Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-* ex. Windows 10
-
-### Installing
-
-* How/where to download your program
-* Any modifications needed to be made to files/folders
-
-### Executing program
-
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
-
 ## Authors
 
 Contributors names and contact info
+1. [Anditya Sridamar Pratyasta](https://www.linkedin.com/in/andidamar/)
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-* 0.2
-    * Various bug fixes and optimizations
-    * See [commit change]() or See [release history]()
-* 0.1
-    * Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-* [Simple-readme](https://gist.github.com/DomPizzie/7a5ff55ffa9081f2de27c315f5018afc)
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
