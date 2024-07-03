@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+
+#-- Author: Anditya Sridamar Pratyasta : anditya.sridamar.p@kangwon.ac.kr
+
+
 #add test
 
 import rospy

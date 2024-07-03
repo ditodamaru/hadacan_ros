@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Author: Anditya Sridamar Pratyasta : anditya.sridamar.p@kangwon.ac.kr
+#-- Author: Anditya Sridamar Pratyasta : anditya.sridamar.p@kangwon.ac.kr
 
 import rospy
 from std_msgs.msg import Float64
@@ -10,7 +10,6 @@ import subprocess
 # Constants
 OFFSET1 = 30
 OFFSET2 = 1000
-#JOYSTICK_DEVICE = '/dev/input/js0'
 
 def radian_to_degrees(radian):
     return radian * 180 / 3.14
@@ -44,18 +43,15 @@ def send_cansend_frame(cansend_frame):
         '''
         For python 2 ROS Melodic use below:
         '''
-        subprocess.check_call(['cansend', 'can0', cansend_frame])
+        subprocess.check_call(['cansend', 'vcan0', cansend_frame])
     except subprocess.CalledProcessError as e:
         rospy.logerr("Error sending cansend frame. Return code: %s", e.returncode)
         rospy.logerr("Sending emergeny stop frame.")
         stop_frame = generate_cansend_frame(0, 0)  #Frame for stopping the robot
         #subprocess.call(['cansend', 'can0', stop_frame])  #blocking call (synchronuse process) to stop the robot
-        process = subprocess.Popen(['cansend', 'can0', stop_frame])
+        process = subprocess.Popen(['cansend', 'vcan0', stop_frame])
     except Exception as e:
         rospy.logerr("Error sending cansend frame: %s", str(e))
-
-# block to detect joystick_connection
-#def check_joystick_connection():        
 
 def ackermann_callback(data):
     steering_angle_rad = data.drive.steering_angle

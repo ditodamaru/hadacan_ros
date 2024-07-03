@@ -4,19 +4,20 @@
   <version>0.0.0</version>
   <description>The cansend_generator package</description>
 
-  <maintainer email="anditya.sridamar.p@gmail.com">Dito Damaru</maintainer>
+  <maintainer email="anditya.sridamar.p@kangwon.ac.kr">Dito Damaru</maintainer>
 
-  <license>GPLv3</license>
+  <license>BSDv3</license>
 
-  <author email="anditya.sridamar.p@gmail.com">Dito Damaru</author>
+  <author email="anditya.sridamar.p@kangwon.ac.kr">Dito Damaru</author>
 
   <buildtool_depend>catkin</buildtool_depend>
 
   <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>sensor_msgs</depend>
   <depend>ackermann_msgs</depend>
+  <depend>roscpp</depend> <!-- Add roscpp as a dependency for C++ nodes -->
 
   <export>
   </export>
 </package>
-
-<!-- test-->

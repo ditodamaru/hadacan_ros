@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+#-- Author: Anditya Sridamar Pratyasta : anditya.sridamar.p@kangwon.ac.kr
+
+
 '''
 TEST
 canparsing_frame = "585"
@@ -12,7 +15,7 @@ else if(data[7] == 0x01){
 AccX = (float)((int16_t)(data[1] << 8 | data[0])) / 1000.0f;
 AccY = (float)((int16_t)(data[3] << 8 | data[2])) / 1000.0f;
 AccZ = (float)((int16_t)(data[5] << 8 | data[4])) / 1000.0f;
-}
+};;;
 else if(data[7] == 0x02){
 GyroX = (float)((int16_t)(data[1] << 8 | data[0])) / 100.0f;
 GyroY = (float)((int16_t)(data[3] << 8 | data[2])) / 100.0f;
@@ -115,7 +118,7 @@ def main():
             #change %X foe hexadecimal
             #method1
             #rospy.loginfo("Check : %X", can_id & (1 << 32)) #Ensure can_id is non_negative
-            can_decode_and_publish_modeC
+            ##can_decode_and_publish_modeC
             #method2
             rospy.loginfo("Check : %X", can_id & 0xFFFFFFFF)
 

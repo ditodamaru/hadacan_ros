@@ -4,7 +4,7 @@ project(cansend_generator)
 find_package(catkin REQUIRED COMPONENTS
   rospy
   ackermann_msgs
-  roscpp
+  roscpp  # Add roscpp for C++ support
   std_msgs
   sensor_msgs
 )
@@ -12,7 +12,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS rospy ackermann_msgs roscpp std_msgs sensor_msgs  # Include roscpp and sensor_msgs here
+  CATKIN_DEPENDS rospy ackermann_msgs roscpp std_msgs sensor_msgs
 )
 
 include_directories(
@@ -32,9 +32,3 @@ target_link_libraries(imu_parsing
 install(TARGETS imu_parsing
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
-
-catkin_install_python(PROGRAMS scripts/cansend_generator.py scripts/canparsing_imu_ros1.py
-  scripts/joy_detect.py scripts/cmd_vel_to_ackermann_drive.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-

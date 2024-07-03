@@ -1,9 +1,9 @@
-# Joystick Remote Control for HADA H500 Sprayer CANBUS-Based Protocol and software stack interface to ROS
+# Joystick Remote Control for HADA H500 Sprayer CANBUS-Based Protocol and software Stack Interface to ROS
 
-This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Joytron MXSwitch Joystick version was used to test the functionality. Other joystick brand and version may need adjustment.   
+This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Joytron MXSwitch Bluetooth Joystick version was used to test the functionality. Other joystick brand and version may need adjustment.   
 
 
-## List To-DO
+## List To-Do
 
 - [v] add functionality to check joystick connection on (cansend_generator.py) for safety
 - [v] add block to give understanding this node controlled by joystick or external
@@ -67,7 +67,24 @@ Don't forget to give the project a star! Thanks again!
 
 
 
-### Launch Script for joystick_remapper
+### Launch Script for joystick_remapper. Create new file on directory joystick_remapper/launch with name joystick_remapper_ps3_hadarobot.launch as an example 
+  ```
+  <?xml version="1.0"?>
+  <launch>
+    <node pkg="joy" type="joy_node" name="ps3_joy" >
+      <remap from="joy" to="ps3_joy" />
+      <param name="dev" value="/dev/input/js0" />
+      <param name="deadzone" value="0.1" />
+      <param name="autorepeat_rate" value="10" />
+    </node>
+    <node pkg="joystick_remapper" type="joystick_remapper.py" name="ps3_to_hadarobot" >
+      <remap from="joy_source" to="ps3_joy" />
+      <remap from="joy_dest" to="joy" />
+      <param name="button_mapping" type="str" value="=" />
+      <param name="axis_mapping" type="str" value="0 3 1 2 4 5 6" /> <!-- result1 = 0 2 1 3 4 5 6-->
+    </node>
+  </launch>
+  ```
 
 
 
