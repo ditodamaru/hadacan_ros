@@ -16,14 +16,50 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
 ## Basic usage of the ROS packages
 ### Install dependencies
 
-1. [Joystick Remapper](http://wiki.ros.org/joystick_remapper) Use this launch script 
+1. Build from source and fork this repository [Joystick Remapper](http://wiki.ros.org/joystick_remapper) 
+    * Create new ROS workspace environment (recommended) for ROS Melodic. For ROS Noetic may need to modify the python script on [joystick_remapper/script/joystick_remapper.py](https://github.com/epan-utbm/joystick_remapper/blob/melodic/scripts/joystick_remapper.py) to python3
+    ```
+    mkdir -p ~/github/joystick_remapper_ws/src
+    cd ~/github/joystick_remapper_ws
+    catkin_make
+    cd src
+    git clone https://github.com/epan-utbm/joystick_remapper.git
+    cd ..
+    catkin_make
+    source ~/github/joystick_remapper_ws/devel/setup.bash
+    echo "source ~/github/joystick_remapper_ws/devel/setup.bash" >> ~/.bashrc
+    source ~/.bashrc
+    ```
+    * Create new file on directory joystick_remapper/launch with a name "joystick_remapper_ps3_hadarobot.launch" as an example. After completed this step you will see new file called joystick_remapper_ps3_hadarobot.launch
+    cd ~/github/joystick_remapper_ws/src/joystick_remapper/launch
+    touch joystick_remapper_ps3_hadarobot.launch
+    * Edit joystick_remapper_ps3_hadarobot.launch using Visual Studio code and the copy this launch script below:
+    ```
+    <?xml version="1.0"?>
+    <launch>
+      <node pkg="joy" type="joy_node" name="ps3_joy" >
+        <remap from="joy" to="ps3_joy" />
+        <param name="dev" value="/dev/input/js0" />
+        <param name="deadzone" value="0.1" />
+        <param name="autorepeat_rate" value="10" />
+      </node>
+      <node pkg="joystick_remapper" type="joystick_remapper.py" name="ps3_to_hadarobot" >
+        <remap from="joy_source" to="ps3_joy" />
+        <remap from="joy_dest" to="joy" />
+        <param name="button_mapping" type="str" value="=" />
+        <param name="axis_mapping" type="str" value="0 3 1 2 4 5 6" /> <!-- result1 = 0 2 1 3 4 5 6-->
+      </node>
+    </launch>
+    ```
 2. [HADA bringup ROS Package]
-3. Fork this branch (for developer)
-    * Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+    *Clone this package
+3. Ackerman Drive Package
+
+4. Fork this branch (for developer)
+    * Create your Feature Branch (`git checkout -b )
     * Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
     * Push to the Branch (`git push origin feature/AmazingFeature`)
 
-4. 
 5. Launch ROS Nodes
 
   * Start bluetooth joystick node and joystick topic remapper 
