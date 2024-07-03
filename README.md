@@ -30,7 +30,9 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
     echo "source ~/github/joystick_remapper_ws/devel/setup.bash" >> ~/.bashrc
     source ~/.bashrc
     ```
-    * Create new file on directory joystick_remapper/launch with a name "joystick_remapper_ps3_hadarobot.launch" as an example. After completed this step you will see new file called joystick_remapper_ps3_hadarobot.launch
+    * Create new file on directory joystick_remapper/launch with a name "joystick_remapper_ps3_hadarobot.launch" as an example. 
+    
+    After completed this step you will see new file called joystick_remapper_ps3_hadarobot.launch
     ```
     cd ~/github/joystick_remapper_ws/src/joystick_remapper/launch
     touch joystick_remapper_ps3_hadarobot.launch
@@ -54,6 +56,7 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
     </launch>
     ```
 2. Build from source [HADA bringup ROS Package](https://github.com/ditodamaru/hada_bringup)
+    
     Recommended steps. Assumed that github directory already available.
     ```
     cd ~/github
@@ -68,6 +71,7 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
     source ~/.bashrc
     ```
 3. Build from source [Ackerman Drive Message Generator Package](https://github.com/ditodamaru/ackermann-drive-teleop)
+    
     Recommended steps. Assumed that github directory already exist.
     ```
     cd ~/github
@@ -83,6 +87,7 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
     ```
 
 4. Build from source [this](https://github.com/ditodamaru/hadacan_ros) repository
+    
     Recommended steps. Assumed that github directory already exist
     ```
     cd ~/github
