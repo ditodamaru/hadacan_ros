@@ -33,8 +33,8 @@ install(TARGETS imu_parsing
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-catkin_install_python(PROGRAMS scripts/cansend_generator.py scripts/canparsing_imu_ros1.py
-  scripts/joy_detect.py scripts/cmd_vel_to_ackermann_drive.py
+catkin_install_python(PROGRAMS scripts/cansend_generator.py
+  scripts/joy_detect.py 
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
