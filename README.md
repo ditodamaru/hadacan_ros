@@ -1,4 +1,4 @@
-# Joystick Remote Control for HADA H500 Sprayer CANBUS-Based Protocol and software Stack Interface to ROS
+# Joystick Remote Control for HADA H500 Sprayer CANBUS-Based Protocol and Software Stack Interface to ROS
 
 This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Joytron MXSwitch Bluetooth Joystick version was used to test the functionality. Other joystick brand and version may need adjustment.   
 
@@ -14,10 +14,10 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
 - [v] create connection between joy_detect.py <-> rosrun ackermann_drive_teleop joyop.py 
 
 ## Basic usage of the ROS packages
-### Install dependencies
+### Install dependencies (These step assume that the user will test the package under ROS 1 Melodic)
 
-1. Build from source and fork this repository [Joystick Remapper](http://wiki.ros.org/joystick_remapper) 
-    * Create new ROS workspace environment (recommended) for ROS Melodic. For ROS Noetic may need to modify the python script on [joystick_remapper/script/joystick_remapper.py](https://github.com/epan-utbm/joystick_remapper/blob/melodic/scripts/joystick_remapper.py) to python3
+1. Build from source [Joystick Remapper ROS Package](http://wiki.ros.org/joystick_remapper) 
+    * Create new ROS workspace environment (recommended) for ROS Melodic. For ROS Noetic may need to modify the python script on [joystick_remapper/script/joystick_remapper.py](https://github.com/epan-utbm/joystick_remapper/blob/melodic/scripts/joystick_remapper.py) to python3.
     ```
     mkdir -p ~/github/joystick_remapper_ws/src
     cd ~/github/joystick_remapper_ws
@@ -35,7 +35,7 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
     cd ~/github/joystick_remapper_ws/src/joystick_remapper/launch
     touch joystick_remapper_ps3_hadarobot.launch
     ```
-    * Edit joystick_remapper_ps3_hadarobot.launch using Visual Studio code and the copy this launch script below:
+    * Edit joystick_remapper_ps3_hadarobot.launch using Visual Studio Code and then copy this launch script below:
     ```
     <?xml version="1.0"?>
     <launch>
@@ -53,14 +53,49 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
       </node>
     </launch>
     ```
-2. [HADA bringup ROS Package]
-    * Clone this package
-3. Ackerman Drive Package
+2. Build from source [HADA bringup ROS Package](https://github.com/ditodamaru/hada_bringup)
+    Recommended steps. Assumed that github directory already available.
+    ```
+    cd ~/github
+    mkdir -p hada_bringup_ws/src
+    catkin_make
+    cd src
+    git clone git@github.com:ditodamaru/hada_bringup.git
+    cd ..
+    catkin_make
+    source ~/github/hada_bringup_ws/devel/setup.bash
+    echo "source ~/github/hada_bringup_ws/devel/setup.bash" >> ~/.bashrc
+    source ~/.bashrc
+    ```
+3. Build from source [Ackerman Drive Message Generator Package](https://github.com/ditodamaru/ackermann-drive-teleop)
+    Recommended steps. Assumed that github directory already exist.
+    ```
+    cd ~/github
+    mkdir -p ackerman_teleop_ws/src
+    catkin_make
+    cd src
+    git clone -b melodic-devel git@github.com:ditodamaru/ackermann-drive-teleop.git
+    cd ..
+    catkin_make
+    source ~/github/ackerman_teleop_ws/devel/setup.bash
+    echo "source ~/github/ackerman_teleop_ws/devel/setup.bash" >> ~/.bashrc
+    source ~/.bashrc
+    ```
 
-4. Fork this branch (for developer)
-    * Create your Feature Branch (`git checkout -b )
-    * Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-    * Push to the Branch (`git push origin feature/AmazingFeature`)
+4. Build from source [this](https://github.com/ditodamaru/hadacan_ros) repository
+    Recommended steps. Assumed that github directory already exist
+    ```
+    cd ~/github
+    mkdir -p hadacan_ros_ws/src
+    catkin_make
+    cd src
+    git clone git@github.com:ditodamaru/hadacan_ros.git
+    cd ..
+    catkin_make
+    source ~/github/hadacan_ros_ws/devel/setup.bash
+    echo "source ~/github/hadacan_ros_ws/devel/setup.bash" >> ~/.bashrc
+    source ~/.bashrc
+    ```
 
 5. Launch ROS Nodes
 
@@ -73,18 +108,33 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
   rosrun cansend_generator joy_detect.py
   ```
   * Start CAN Bus Communication with HADA H500 Robot
-  ```
-  rosrun hada_bringup bringup_can2usb_hada.bash 
-  ```
+    Option 1
+    ```
+    rosrun hada_bringup bringup_can2usb_hada.bash 
+    ```
+    Option 2 (Optionally to start CAN Bus communication could be done by this command without hada_bringup package)
+    ```
+    rosrun hada_bringup bringup_can2usb_hada.bash 
+    ```
+    Troubleshooting CAN Bus communication (You will see incoming CAN frame messages from HADA H500 robot)
+    ```
+    candump can0
+    ```
   * Start ackerman drive steering control node 
   ```
   rosrun ackermann_drive_teleop joyop.py
   ```
+  * Start sending CAN frame message to H500 Sprayer
+  ```
+  rosrun cansend_generator cansend_generator.py
+  ```
 
 * Check this video for [details](https://www.youtube.com/watch?v=bRNPGkcOvKI)
 * Check this [figure](https://github.com/ditodamaru/cansend_ws_aero/blob/main/docs/rosgraph_hada_remote_control.png) for troubleshooting
+* Check this ![figure](https://github.com/ditodamaru/cansend_ws_aero/blob/main/docs/rosgraph_hada_remote_control.png?raw=true) for troubleshooting
 
 
+## Basic usage of the ROS packages for development
 
 
 <!-- CONTRIBUTING -->
@@ -102,6 +152,14 @@ Don't forget to give the project a star! Thanks again!
 5. Open a Pull Request
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+
+
+
+
+
 
 
 
