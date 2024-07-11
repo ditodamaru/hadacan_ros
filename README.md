@@ -104,15 +104,15 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
 
 5. Launch ROS Nodes
 
-  * Start bluetooth joystick node and joystick topic remapper 
+  * Terminal 1: Start bluetooth joystick node and joystick topic remapper 
   ```
   roslaunch joystick_remapper joystick_remapper_ps3_hadarobot.launch 
   ```
-  * Start joystick controller safety node 
+  * Terminal 2: Start joystick controller safety node 
   ```
   rosrun cansend_generator joy_detect.py
   ```
-  * Start CAN Bus Communication with HADA H500 Robot
+  * Terminal 3: Start CAN Bus Communication with HADA H500 Robot
 
     For first installation
     ```
@@ -120,7 +120,7 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
     ```
     After installation finished, directly use this steps below.
       
-      Option 1
+      Terminal 3: Option 1
       ```
       rosrun hada_bringup bringup_can2usb_hada.bash 
       ```
@@ -128,15 +128,17 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
       ```
       sudo ip link set can0 up type can bitrate 125000
       ```
-      Troubleshooting CAN Bus communication (You will see incoming CAN frame messages from HADA H500 robot)
+      Terminal 4: Troubleshooting CAN Bus communication (You will see incoming CAN frame messages from HADA H500 robot)
       ```
       candump can0
       ```
-  * Start ackerman drive steering control node 
+  * Terminal 5: Start ackerman drive steering control node 
   ```
   rosrun ackermann_drive_teleop joyop.py
   ```
-  * Start sending CAN frame message to H500 Sprayer
+  * Terminal 6: Start sending CAN frame message to H500 Sprayer.
+
+  **CAUTION:** Make sure to move the HADA H500 sprayer robot in a safe space.
   ```
   rosrun cansend_generator cansend_generator.py
   ```
@@ -147,6 +149,59 @@ This ROS package was tested under ROS 1 Melodic installed on Ubuntu 18.04 and Jo
 
 
 ## Basic usage of the ROS packages for development
+This guideline is intended to make integration between basic usage mentioned above and real-time robot position visualization purpose in RVIZ, also to do mininum requirement for making Visual SLAM (VSLAM) working based on RTABMap for **Handheld Mapping**.
+
+1. Launch ROS Nodes
+
+  * Terminal 7: Start visualize the H500 Sprayer in RVIZ 
+  
+  - (Make sure you have similar [H500 URDF xacro file equpped with RealSense D435i and GPS](https://github.com/ditodamaru/hada_explorer_ws/blob/master/h500_description/h500_sprayer/h500_ori_base_link_d435i_base_footprint.urdf.xacro)). 
+  - And then copy and modify [this](https://github.com/ditodamaru/hada_explorer_ws/blob/master/hada_explorer_bot/hada_explorer_description/launch/hada_base_bringup_method2.launch) launch file according to your URDF file setting. **IMPORTANT** Make sure to change the position of gps_link and camera_link to base_link according to your depth camera position setting in reality. So this URDF file basically acting as a twin of your real robot.
+  - (This command below is just an example if you want to test and learn about the H500 URDF xacro file equpped with RealSense D435i and GPS).
+  - This RVIZ visualization will automatically subscribe to odometry message which will represent the robot movement in reality. How to get odometry message if the robot doesn't have any odometry message? We will explaine later. 
+  ```
+  roslaunch hada_explorer_description hada_base_bringup_method2.launch 
+  ```
+  - After above command executed, try to learn about TF (transform) tree of this H500 URDF xacro file with this command
+  ```
+  rosrun rqt_tf_tree rqt_tf_tree 
+  ```
+  * Terminal 8: Start the DepthAI OAK-D RGB-D Mode for **Handheld Mapping**:
+  Read more about RGB-D Handheld Mapping for OAK-D camera [here](http://wiki.ros.org/rtabmap_ros/Tutorials/HandHeldMapping)
+  ```
+  roslaunch depthai_examples stereo_inertial_node.launch
+  ```
+  * Terminal 9: Start to estimate quaternion of the IMU data
+  ```
+  rosrun imu_filter_madgwick imu_filter_node \
+    imu/data_raw:=/stereo_inertial_publisher/imu \
+    imu/data:=/stereo_inertial_publisher/imu/data  \
+    _use_mag:=false \
+    _publish_tf:=false
+  ```
+
+  * Terminal 10: Start Mapping Mode
+  ```
+  roslaunch rtabmap_launch rtabmap.launch \
+    args:="--delete_db_on_start" \
+    rgb_topic:=/stereo_inertial_publisher/color/image \
+    depth_topic:=/stereo_inertial_publisher/stereo/depth \
+    camera_info_topic:=/stereo_inertial_publisher/color/camera_info \
+    imu_topic:=/stereo_inertial_publisher/imu/data \
+    frame_id:=oak-d_frame \
+    approx_sync:=true \
+    wait_imu_to_init:=true
+  ```
+  * Terminal 11: Start Localization Mode
+  - After the mapping process completed, then switch to localization mode or switch back to mapping mode if you are not satisfy with the map result.
+  ```
+
+  rosservice call rtabmap/set_mode_localization
+  rosservice call rtabmap/set_mode_mapping
+  ```
+
+## Advance usage of this sofware stack for stereo outdoor navigation
+**Coming Up**
 
 
 <!-- CONTRIBUTING -->
