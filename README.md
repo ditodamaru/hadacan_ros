@@ -159,7 +159,7 @@ This guideline is intended to make integration between basic usage mentioned abo
   * a. (Make sure you have similar [H500 URDF xacro file equpped with RealSense D435i and GPS](https://github.com/ditodamaru/hada_explorer_ws/blob/master/h500_description/h500_sprayer/h500_ori_base_link_d435i_base_footprint.urdf.xacro)). 
   * b. And then copy and modify [this](https://github.com/ditodamaru/hada_explorer_ws/blob/master/hada_explorer_bot/hada_explorer_description/launch/hada_base_bringup_method2.launch) launch file according to your URDF file setting. **IMPORTANT** Make sure to change the position of gps_link and camera_link to base_link according to your depth camera position setting in reality. So this URDF file basically acting as a twin of your real robot.
   * c. (This command below is just an example if you want to test and learn about the H500 URDF xacro file equpped with RealSense D435i and GPS).
-  * d. This RVIZ visualization will automatically subscribe to odometry message which will represent the robot movement in reality. How to get odometry message if the robot doesn't have any odometry message? We will explaine later. 
+  * d. This RVIZ visualization will automatically subscribe to odometry message which will represent the robot movement in reality. How to get odometry message if the robot doesn't have any odometry message? Read more here which explain RTABMap setting in order to get odometry via [RTABMap stereo mode](http://wiki.ros.org/rtabmap_ros/Tutorials/SetupOnYourRobot). 
   ```
   roslaunch hada_explorer_description hada_base_bringup_method2.launch 
   ```
